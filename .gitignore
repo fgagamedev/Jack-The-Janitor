@@ -21,7 +21,6 @@ Jack_The_Janitor
 *.swo
 
 # Autotools
-Makefile
 Makefile.in
 aclocal.m4
 autom4te.cache
