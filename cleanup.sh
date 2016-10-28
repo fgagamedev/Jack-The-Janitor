@@ -4,7 +4,4 @@
 # Changes made by Jack_The_Janitor authors (check AUTHORS file for more info)
 # Date: 5/06/2013
 
-# all
-make clean
-find . -name *~ -exec rm -f {} \;
-
+rm -rf build bin
