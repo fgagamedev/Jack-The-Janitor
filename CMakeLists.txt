@@ -10,7 +10,7 @@ ExternalProject_Add(
     URL ${CMAKE_CURRENT_SOURCE_DIR}/libs/src/SDL-1.2.15.tar.gz
     CONFIGURE_COMMAND <SOURCE_DIR>/configure --prefix=${CMAKE_CURRENT_SOURCE_DIR}/libs/SDL-1.2
     BUILD_COMMAND make
-    INSTALL_COMMAND make install
+    INSTALL_COMMAND make install && cp ${CMAKE_CURRENT_SOURCE_DIR}/libs/SDL-1.2/lib/libSDL-1.2.so.0 ${CMAKE_CURRENT_SOURCE_DIR}/lib/
 )
 
 ExternalProject_Add(
@@ -19,7 +19,7 @@ ExternalProject_Add(
     URL ${CMAKE_CURRENT_SOURCE_DIR}/libs/src/SDL_image-1.2.12.tar.gz
     CONFIGURE_COMMAND <SOURCE_DIR>/configure --prefix=${CMAKE_CURRENT_SOURCE_DIR}/libs/SDL-1.2
     BUILD_COMMAND make
-    INSTALL_COMMAND make install
+    INSTALL_COMMAND make install && cp ${CMAKE_CURRENT_SOURCE_DIR}/libs/SDL-1.2/lib/libSDL_image-1.2.so.0 ${CMAKE_CURRENT_SOURCE_DIR}/lib/
 )
 
 ExternalProject_Add(
@@ -38,5 +38,5 @@ ExternalProject_Add(
     URL ${CMAKE_CURRENT_SOURCE_DIR}/libs/src/SDL_ttf-2.0.11.tar.gz
     CONFIGURE_COMMAND <SOURCE_DIR>/configure --prefix=${CMAKE_CURRENT_SOURCE_DIR}/libs/SDL-1.2 --with-freetype-prefix=${CMAKE_CURRENT_SOURCE_DIR}/libs/FreeType-2.4
     BUILD_COMMAND make
-    INSTALL_COMMAND make install
+    INSTALL_COMMAND make install && cp ${CMAKE_CURRENT_SOURCE_DIR}/libs/SDL-1.2/lib/libSDL_ttf-2.0.so.0 ${CMAKE_CURRENT_SOURCE_DIR}/lib/
 )
