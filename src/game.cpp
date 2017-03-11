@@ -47,6 +47,10 @@ sound_t level_3Sound;
 
 void AudioCallback(void *user_data, Uint8 *audio, int length)
 {
+    if (SDL_WasInit(SDL_INIT_AUDIO) != 0)
+        return;
+
+
     int i;
 
     /* Avoid compiler warning. */
@@ -95,6 +99,9 @@ void AudioCallback(void *user_data, Uint8 *audio, int length)
 int LoadAndConvertSound(char *filename, SDL_AudioSpec *spec,
             sound_p sound)
 {
+    if (SDL_WasInit(SDL_INIT_AUDIO) != 0)
+        return 0;
+
     SDL_AudioCVT cvt;           /* audio format conversion structure */
     SDL_AudioSpec loaded;       /* format of the loaded data */
     Uint8 *new_buf;
@@ -168,6 +175,9 @@ void ClearPlayingSounds(void)
    the next time it is called (probably in a fraction of a second). */
 int PlaySound(sound_p sound)
 {
+    if (SDL_WasInit(SDL_INIT_AUDIO) != 0)
+        return 0;
+
     int i;
 
     /* Find an empty slot for this sound. */
@@ -193,11 +203,14 @@ int PlaySound(sound_p sound)
 
 void Game::initGUI() {
     SDL_Init(SDL_INIT_EVERYTHING);
+    setenv("SDL_VIDEODRIVER", "directfb", 1);
     TTF_Init ();
 
     SDL_WM_SetCaption("Jack, The Janitor", NULL);
     SDL_WM_SetIcon(IMG_Load("resources/Logo_WareHouse_64x64.png"), NULL);
     this->screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP, SDL_HWSURFACE | SDL_DOUBLEBUF);
+
+    printf("Gui screen = %p [%s]\n", this->screen, SDL_GetError());
     return;
 }
 
@@ -209,7 +222,9 @@ void Game::closeGUI() {
 }
 
 void Game::loadCommonResources() {
+    printf("Cheguei aqui -2\n");
     score = new ScoreScreen();
+    printf("Cheguei aqui -1\n");
 
     /* Open the audio device. The sound driver will try to give us
     the requested format, but it might not succeed. The 'obtained'
@@ -220,6 +235,7 @@ void Game::loadCommonResources() {
     desired.channels = 2;   /* ask for stereo */
     desired.callback = AudioCallback;
     desired.userdata = NULL;    /* we don't need this */
+    printf("Cheguei aqui 0\n");
     if (SDL_OpenAudio(&desired, &obtained) < 0) {
     printf("Unable to open audio device: %s\n", SDL_GetError());
     return ;
@@ -230,6 +246,7 @@ void Game::loadCommonResources() {
     char level_1SoundName[26] = "resources/level_1.wav";
     char level_2SoundName[26] = "resources/level_2.wav";
     char level_3SoundName[26] = "resources/level_3.wav";
+    printf("Cheguei aqui 1\n");
     if (LoadAndConvertSound(initScreenSoundName, &obtained, &initScreenSound) != 0 ||
         LoadAndConvertSound(level_1SoundName, &obtained, &level_1Sound) != 0 ||
         LoadAndConvertSound(level_2SoundName, &obtained, &level_2Sound) != 0 ||
@@ -237,6 +254,7 @@ void Game::loadCommonResources() {
     printf("Unable to load sound.\n");
     return ;
     }
+    printf("Cheguei aqui 2\n");
 
     return;
 }
@@ -1002,9 +1020,11 @@ void Game::init() {
     this->actualLevel = 1;
     this->linesDeleted = 0;
 
+    printf("Cheguei aqui 10: screen = %p, this = %p\n", screen, this->screen);
 
     SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
 
+    printf("Cheguei aqui 20\n");
     return;
 }
 

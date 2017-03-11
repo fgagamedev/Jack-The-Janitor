@@ -8,8 +8,8 @@ ExternalProject_Add(
     SDL 
     PREFIX libs
     URL ${CMAKE_CURRENT_SOURCE_DIR}/libs/src/SDL-1.2.15.tar.gz
-    CONFIGURE_COMMAND <SOURCE_DIR>/configure --prefix=${CMAKE_CURRENT_SOURCE_DIR}/libs/SDL-1.2
-    BUILD_COMMAND make
+    CONFIGURE_COMMAND <SOURCE_DIR>/configure --prefix=${CMAKE_CURRENT_SOURCE_DIR}/libs/SDL-1.2 --enable-video-x11 --enable-x11-shared --enable-video-x11-vm
+    BUILD_COMMAND cp ${CMAKE_CURRENT_SOURCE_DIR}/libs/SDL_x11sym.h ${CMAKE_CURRENT_SOURCE_DIR}/build/libs/src/SDL/src/video/x11/ && make
     INSTALL_COMMAND make install && cp ${CMAKE_CURRENT_SOURCE_DIR}/libs/SDL-1.2/lib/libSDL-1.2.so.0 ${CMAKE_CURRENT_SOURCE_DIR}/lib/
 )
 

@@ -72,5 +72,6 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: <<-SHELL
      apt-get update
      apt-get install build-essential git vim-gtk cmake -y
+     apt-get install xorg-dev
   SHELL
 end

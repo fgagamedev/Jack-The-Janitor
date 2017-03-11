@@ -37,9 +37,16 @@ missing
 jackthejanitor
 stamp-h1
 
-#game screenshot
+# Game screenshot
 screenshot.bmp
 
 # libs
 libs/FreeType-2.4/
 libs/SDL-1.2/
+
+# CMake and build files
+bin
+build
+lib
+libs/src
+libs/tmp
