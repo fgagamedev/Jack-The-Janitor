@@ -1,16 +1,10 @@
 # !/bin/bash
+#
+# Generate the game installer for Linux platform.
+#
 # Author: Edson Alves - edsonalves@unb.br
-# Date: 09/03/2017
+# Date: 12/03/2017
 
-# Compiles the game
-mkdir -p build lib
-cd build
-cmake ..
-make
-make install
-cd ..
-
-# Generates the installer
 mkdir -p dist/linux/package/jtj/data
 archivegen data.7z bin/Jack_the_Janitor lib resources
 mv data.7z dist/linux/packages/jtj/data/
