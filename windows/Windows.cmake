@@ -41,3 +41,5 @@ set(SDL_IMAGE_CFLAGS "-I${SYSTEM_LIBS_DIR}/zlib-1.2/include -I${SYSTEM_LIBS_DIR}
 set(SDL_IMAGE_LDFLAGS "-L${SYSTEM_LIBS_DIR}/zlib-1.2/lib -L${SYSTEM_LIBS_DIR}/libpng-1.6/lib")
 set(SDL_IMAGE_CONFIGURE_OPTIONS --build=i686-unknown-linux --host=i686-w64-mingw32 --with-sdl-prefix=${SYSTEM_LIBS_DIR}/SDL-1.2)
 set(SDL_IMAGE_BINARY ${SYSTEM_LIBS_DIR}/SDL-1.2/bin/SDL_image.dll)
+
+set(FREETYPE_CONFIGURE_OPTIONS --build=i686-unknown-linux --host=i686-w64-mingw32)

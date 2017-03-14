@@ -52,16 +52,15 @@ ExternalProject_Add(
     INSTALL_COMMAND make install COMMAND ${CMAKE_COMMAND} -E copy ${SDL_IMAGE_BINARY} ${SYSTEM_BIN_LIB_DIR}
 )
 
-#
-#ExternalProject_Add(
-#    FreeType
-#    PREFIX libs
-#    URL ${CMAKE_CURRENT_SOURCE_DIR}/libs/src/freetype-2.4.0.tar.gz
-#    CONFIGURE_COMMAND <SOURCE_DIR>/configure --prefix=${CMAKE_CURRENT_SOURCE_DIR}/libs/${CMAKE_SYSTEM_NAME}/FreeType-2.4 --build=i686-unknown-linux --host=i686-w64-mingw32
-#    BUILD_COMMAND $(MAKE)
-#    INSTALL_COMMAND $(MAKE) install
-#)
-#
+ExternalProject_Add(
+    FreeType
+    PREFIX libs
+    URL ${LIBS_DIR_SRC}/freetype-2.4.0.tar.gz
+    CONFIGURE_COMMAND <SOURCE_DIR>/configure --prefix=${SYSTEM_LIBS_DIR}/FreeType-2.4 ${FREETYPE_CONFIGURE_OPTIONS}
+    BUILD_COMMAND $(MAKE)
+    INSTALL_COMMAND $(MAKE) install
+)
+
 #ExternalProject_Add(
 #    SDL_ttf
 #    DEPENDS FreeType
