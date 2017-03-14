@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 2.6)
+cmake_policy(SET CMP0011 NEW)
 project(Jack)
 subdirs(src)
 
@@ -29,7 +30,7 @@ if(${CMAKE_SYSTEM_NAME} MATCHES windows)
         INSTALL_COMMAND make install COMMAND ${CMAKE_COMMAND} -E copy ${SDL_BINARY} ${SYSTEM_BIN_LIB_DIR} COMMAND ${CMAKE_COMMAND} -E copy ${LIBPNG_BINARY} ${SYSTEM_BIN_LIB_DIR}
     )
 
-endif(${CMAKE_SYSTEM_NAME} MATCHES Windows)
+endif(${CMAKE_SYSTEM_NAME} MATCHES windows)
 
 ExternalProject_Add(
     SDL 
@@ -44,7 +45,6 @@ ExternalProject_Add(
 
 ExternalProject_Add(
     SDL_image
-    DEPENDS zlib libpng
     PREFIX libs
     URL ${LIBS_DIR_SRC}/SDL_image-1.2.12.tar.gz
     CONFIGURE_COMMAND <SOURCE_DIR>/configure --prefix=${SYSTEM_LIBS_DIR}/SDL-1.2 ${SDL_IMAGE_CONFIGURE_OPTIONS} 
