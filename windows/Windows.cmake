@@ -43,3 +43,8 @@ set(SDL_IMAGE_CONFIGURE_OPTIONS --build=i686-unknown-linux --host=i686-w64-mingw
 set(SDL_IMAGE_BINARY ${SYSTEM_LIBS_DIR}/SDL-1.2/bin/SDL_image.dll)
 
 set(FREETYPE_CONFIGURE_OPTIONS --build=i686-unknown-linux --host=i686-w64-mingw32)
+
+set(SDL_TTF_CONFIGURE_OPTIONS --build=i686-unknown-linux --host=i686-w64-mingw32 --with-freetype-prefix=${SYSTEM_LIBS_DIR}/FreeType-2.4 --with-sdl-prefix=${SYSTEM_LIBS_DIR}/SDL-1.2)
+set(SDL_TTF_BINARY ${SYSTEM_LIBS_DIR}/SDL-1.2/bin/SDL_ttf.dll)
+
+set(SYSTEM_LIBRARIES mingw32 libSDL libSDLmain.a libSDL libSDL_image libSDL_ttf)

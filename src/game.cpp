@@ -203,14 +203,12 @@ int PlaySound(sound_p sound)
 
 void Game::initGUI() {
     SDL_Init(SDL_INIT_EVERYTHING);
-    setenv("SDL_VIDEODRIVER", "directfb", 1);
     TTF_Init ();
 
     SDL_WM_SetCaption("Jack, The Janitor", NULL);
     SDL_WM_SetIcon(IMG_Load("resources/Logo_WareHouse_64x64.png"), NULL);
     this->screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP, SDL_HWSURFACE | SDL_DOUBLEBUF);
 
-    printf("Gui screen = %p [%s]\n", this->screen, SDL_GetError());
     return;
 }
 

@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.6)
 project(Jack)
-# subdirs(src)
+subdirs(src)
 
 include(ExternalProject)
 
@@ -61,13 +61,12 @@ ExternalProject_Add(
     INSTALL_COMMAND $(MAKE) install
 )
 
-#ExternalProject_Add(
-#    SDL_ttf
-#    DEPENDS FreeType
-#    PREFIX libs
-#    URL ${CMAKE_CURRENT_SOURCE_DIR}/libs/src/SDL_ttf-2.0.11.tar.gz
-#    CONFIGURE_COMMAND <SOURCE_DIR>/configure --prefix=${CMAKE_CURRENT_SOURCE_DIR}/libs/${CMAKE_SYSTEM_NAME}/SDL-1.2 --with-freetype-prefix=${CMAKE_CURRENT_SOURCE_DIR}/libs/${CMAKE_SYSTEM_NAME}/FreeType-2.4 --build=i686-unknown-linux --host=i686-w64-mingw32
-#    BUILD_COMMAND $(MAKE)
-#    INSTALL_COMMAND $(MAKE) install COMMAND cp ${CMAKE_CURRENT_SOURCE_DIR}/libs/${CMAKE_SYSTEM_NAME}/SDL-1.2/lib/libSDL_ttf-2.0.so.0 ${Jack_SOURCE_DIR}/bin/${CMAKE_SYSTEM_NAME}/lib/
-#)
-###
+ExternalProject_Add(
+    SDL_ttf
+    DEPENDS FreeType
+    PREFIX libs
+    URL ${LIBS_DIR_SRC}/SDL_ttf-2.0.11.tar.gz
+    CONFIGURE_COMMAND <SOURCE_DIR>/configure --prefix=${SYSTEM_LIBS_DIR}/SDL-1.2 ${SDL_TTF_CONFIGURE_OPTIONS} 
+    BUILD_COMMAND make
+    INSTALL_COMMAND make install COMMAND ${CMAKE_COMMAND} -E copy ${SDL_TTF_BINARY} ${SYSTEM_BIN_LIB_DIR}
+)
