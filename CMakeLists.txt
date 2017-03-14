@@ -38,22 +38,19 @@ ExternalProject_Add(
     PATCH_COMMAND ${CMAKE_COMMAND} -E copy ${PATCHES_DIR}/SDL/SDL_x11sym.h ${SYSTEM_TMP_LIBS_SRC_DIR}/SDL/src/video/x11/SDL_x11sym.h
     CONFIGURE_COMMAND <SOURCE_DIR>/configure --prefix=${SYSTEM_LIBS_DIR}/SDL-1.2 ${SDL_CONFIGURE_OPTIONS}
     BUILD_COMMAND make
-    INSTALL_COMMAND make install 
-# COMMAND ${CMAKE_COMMAND} -E copy ${LOCAL_LIBS_DIR}/SDL-1.2/lib/libSDL-1.2.so.0 ${Jack_SOURCE_DIR}/bin/${CMAKE_SYSTEM_NAME}/lib/
+    INSTALL_COMMAND make install COMMAND ${CMAKE_COMMAND} -E copy ${SDL_BINARY} ${SYSTEM_BIN_LIB_DIR}
 )
 
-##
-#ExternalProject_Add(
-#    SDL_image
-#    DEPENDS zlib libpng
-#    PREFIX libs
-#    URL ${LOCAL_LIBS_SRC_DIR}/SDL_image-1.2.12.tar.gz
-#    CONFIGURE_COMMAND <SOURCE_DIR>/configure --prefix=${CMAKE_CURRENT_SOURCE_DIR}/libs/${CMAKE_SYSTEM_NAME}/SDL-1.2 --build=i686-unknown-linux --host=i686-w64-mingw32 
-#    CONFIGURE_COMMAND CPPFLAGS=${SDL_IMAGE_CPPFLAGS} LDFLAGS=${SDL_IMAGE_LDFLAGS} <SOURCE_DIR>/configure --prefix=${LOCAL_LIBS_DIR}/SDL-1.2 ${SDL_CONFIGURE_OPTIONS} --with-sdl-prefix=${LOCAL_LIBS_DIR}/SDL-1.2
-#    BUILD_COMMAND $(MAKE)
-#    INSTALL_COMMAND $(MAKE) install COMMAND ${CMAKE_COMMAND} -E copy ${LOCAL_LIBS_DIR}/SDL-1.2/lib/libSDL_image-1.2.so.0 ${Jack_SOURCE_DIR}/bin/${CMAKE_SYSTEM_NAME}/lib/
-#)
-#
+
+ExternalProject_Add(
+    SDL_image
+    DEPENDS zlib libpng
+    PREFIX libs
+    URL ${LIBS_DIR_SRC}/SDL_image-1.2.12.tar.gz
+    CONFIGURE_COMMAND <SOURCE_DIR>/configure --prefix=${SYSTEM_LIBS_DIR}/SDL-1.2 ${SDL_IMAGE_CONFIGURE_OPTIONS} 
+    BUILD_COMMAND make CFLAGS=${SDL_IMAGE_CFLAGS} LDFLAGS=${SDL_IMAGE_LDFLAGS}
+    INSTALL_COMMAND make install COMMAND ${CMAKE_COMMAND} -E copy ${SDL_IMAGE_BINARY} ${SYSTEM_BIN_LIB_DIR}
+)
 
 #
 #ExternalProject_Add(
