@@ -2,40 +2,32 @@ cmake_minimum_required(VERSION 2.6)
 project(Jack)
 # subdirs(src)
 
-set(LOCAL_BUILD_DIR ${CMAKE_CURRENT_SOURCE_DIR}/tmp/${CMAKE_SYSTEM_NAME})
-set(LOCAL_LIBS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/libs/${CMAKE_SYSTEM_NAME})
-set(LOCAL_LIBS_SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/libs/src)
-
-
 include(ExternalProject)
 
-if(${CMAKE_SYSTEM_NAME} MATCHES Windows)
+if(${CMAKE_SYSTEM_NAME} MATCHES windows)
 
     ExternalProject_Add(
         zlib
         PREFIX libs
-        URL ${LOCAL_LIBS_SRC_DIR}/zlib-1.2.11.tar.gz
+        URL ${LIBS_DIR_SRC}/zlib-1.2.11.tar.gz
         URL_HASH SHA256=c3e5e9fdd5004dcb542feda5ee4f0ff0744628baf8ed2dd5d66f8ca1197cb1a1
-        PATCH_COMMAND ${CMAKE_COMMAND} -E copy ${LOCAL_LIBS_DIR}/Makefile.gcc ${LOCAL_BUILD_DIR}/libs/src/zlib/win32/Makefile.gcc
+        PATCH_COMMAND ${CMAKE_COMMAND} -E copy ${PATCHES_DIR}/zlib/Makefile.gcc ${SYSTEM_TMP_LIBS_SRC_DIR}/zlib/win32/Makefile.gcc
         CONFIGURE_COMMAND ""
-        BUILD_IN_SOURCE ${LOCAL_BUILD_DIR}/libs/src/zlib
-        BUILD_COMMAND BINARY_PATH=${MINGW_BIN_DIR} INCLUDE_PATH=${MINGW_INCLUDE_DIR} LIBRARY_PATH=${MINGW_LIB_DIR} $(MAKE) -f win32/Makefile.gcc SHARED_MODE=1
-        INSTALL_COMMAND DESTDIR=${LOCAL_LIBS_DIR} BINARY_PATH=/zlib-1.2/bin INCLUDE_PATH=/zlib-1.2/include LIBRARY_PATH=/zlib-1.2/lib $(MAKE) -f win32/Makefile.gcc install
+        BUILD_IN_SOURCE ${SYSTEM_TMP_LIBS_SRC_DIR}/zlib
+        BUILD_COMMAND BINARY_PATH=${MINGW_BIN_DIR} INCLUDE_PATH=${MINGW_INCLUDE_DIR} LIBRARY_PATH=${MINGW_LIB_DIR} make -f win32/Makefile.gcc 
+        INSTALL_COMMAND DESTDIR=${SYSTEM_LIBS_DIR} BINARY_PATH=/zlib-1.2/bin INCLUDE_PATH=/zlib-1.2/include LIBRARY_PATH=/zlib-1.2/lib make -f win32/Makefile.gcc install SHARED_MODE=1
     )
 
-#    ExternalProject_Add(
-#        libpng
-#        PREFIX libs
-#        DEPENDS zlib 
-#        URL ${LOCAL_LIBS_SRC_DIR}/libpng-1.6.28.tar.gz
-#        URL_HASH MD5=897ccec1ebfb0922e83c2bfaa1be8748
-##        PATCH_COMMAND ${CMAKE_COMMAND} -E copy ${LOCAL_LIBS_DIR}/Makefile.gcc ${LOCAL_BUILD_DIR}/libs/src/zlib/win32/Makefile.gcc
-#        CONFIGURE_COMMAND <SOURCE_DIR>/configure --prefix=${LOCAL_LIBS_DIR}/SDL-1.2 ${LIBPNG_CONFIGURE_OPTIONS}
-##        BUILD_IN_SOURCE ${LOCAL_BUILD_DIR}/libs/src/zlib
-###        BUILD_COMMAND BINARY_PATH=${MINGW_BIN_DIR} INCLUDE_PATH=${MINGW_INCLUDE_DIR} LIBRARY_PATH=${MINGW_LIB_DIR} $(MAKE) -f win32/Makefile.gcc SHARED_MODE=1
-##        INSTALL_COMMAND DESTDIR=${LOCAL_LIBS_DIR} BINARY_PATH=/zlib-1.2/bin INCLUDE_PATH=/zlib-1.2/include LIBRARY_PATH=/zlib-1.2/lib $(MAKE) -f win32/Makefile.gcc install
-#    )
-
+    ExternalProject_Add(
+        libpng
+        PREFIX libs
+        DEPENDS zlib 
+        URL ${LIBS_DIR_SRC}/libpng-1.6.28.tar.gz
+        URL_HASH MD5=897ccec1ebfb0922e83c2bfaa1be8748
+        CONFIGURE_COMMAND LDFLAGS=${LIBPNG_LDFLAGS} <SOURCE_DIR>/configure --prefix=${SYSTEM_LIBS_DIR}/libpng-1.6 ${LIBPNG_CONFIGURE_OPTIONS}
+        BUILD_COMMAND make CFLAGS=${LIBPNG_CPPFLAGS} LDFLAGS=${LIBPNG_LDFLAGS} 
+        INSTALL_COMMAND make install
+    )
 
 endif(${CMAKE_SYSTEM_NAME} MATCHES Windows)
 
