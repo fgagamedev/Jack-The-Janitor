@@ -15,7 +15,7 @@ if(${CMAKE_SYSTEM_NAME} MATCHES windows)
         CONFIGURE_COMMAND ""
         BUILD_IN_SOURCE ${SYSTEM_TMP_LIBS_SRC_DIR}/zlib
         BUILD_COMMAND BINARY_PATH=${MINGW_BIN_DIR} INCLUDE_PATH=${MINGW_INCLUDE_DIR} LIBRARY_PATH=${MINGW_LIB_DIR} make -f win32/Makefile.gcc 
-        INSTALL_COMMAND DESTDIR=${SYSTEM_LIBS_DIR} BINARY_PATH=/zlib-1.2/bin INCLUDE_PATH=/zlib-1.2/include LIBRARY_PATH=/zlib-1.2/lib make -f win32/Makefile.gcc install SHARED_MODE=1
+        INSTALL_COMMAND DESTDIR=${SYSTEM_LIBS_DIR} BINARY_PATH=/zlib-1.2/bin INCLUDE_PATH=/zlib-1.2/include LIBRARY_PATH=/zlib-1.2/lib make -f win32/Makefile.gcc install SHARED_MODE=1 COMMAND ${CMAKE_COMMAND} -E copy ${ZLIB_BINARY} ${SYSTEM_BIN_LIB_DIR}
     )
 
     ExternalProject_Add(
@@ -26,20 +26,22 @@ if(${CMAKE_SYSTEM_NAME} MATCHES windows)
         URL_HASH MD5=897ccec1ebfb0922e83c2bfaa1be8748
         CONFIGURE_COMMAND LDFLAGS=${LIBPNG_LDFLAGS} <SOURCE_DIR>/configure --prefix=${SYSTEM_LIBS_DIR}/libpng-1.6 ${LIBPNG_CONFIGURE_OPTIONS}
         BUILD_COMMAND make CFLAGS=${LIBPNG_CPPFLAGS} LDFLAGS=${LIBPNG_LDFLAGS} 
-        INSTALL_COMMAND make install
+        INSTALL_COMMAND make install COMMAND ${CMAKE_COMMAND} -E copy ${SDL_BINARY} ${SYSTEM_BIN_LIB_DIR} COMMAND ${CMAKE_COMMAND} -E copy ${LIBPNG_BINARY} ${SYSTEM_BIN_LIB_DIR}
     )
 
 endif(${CMAKE_SYSTEM_NAME} MATCHES Windows)
 
-#ExternalProject_Add(
-#    SDL 
-#    PREFIX libs
-#    URL ${LOCAL_LIBS_SRC_DIR}/SDL-1.2.15.tar.gz
-#    PATCH_COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/libs/SDL_x11sym.h ${LOCAL_BUILD_DIR}/libs/src/SDL/src/video/x11/ 
-#    CONFIGURE_COMMAND <SOURCE_DIR>/configure --prefix=${LOCAL_LIBS_DIR}/SDL-1.2 ${SDL_CONFIGURE_OPTIONS}
-#    BUILD_COMMAND $(MAKE)
-#    INSTALL_COMMAND $(MAKE) install COMMAND ${CMAKE_COMMAND} -E copy ${LOCAL_LIBS_DIR}/SDL-1.2/lib/libSDL-1.2.so.0 ${Jack_SOURCE_DIR}/bin/${CMAKE_SYSTEM_NAME}/lib/
-#)
+ExternalProject_Add(
+    SDL 
+    PREFIX libs
+    URL ${LIBS_DIR_SRC}/SDL-1.2.15.tar.gz
+    PATCH_COMMAND ${CMAKE_COMMAND} -E copy ${PATCHES_DIR}/SDL/SDL_x11sym.h ${SYSTEM_TMP_LIBS_SRC_DIR}/SDL/src/video/x11/SDL_x11sym.h
+    CONFIGURE_COMMAND <SOURCE_DIR>/configure --prefix=${SYSTEM_LIBS_DIR}/SDL-1.2 ${SDL_CONFIGURE_OPTIONS}
+    BUILD_COMMAND make
+    INSTALL_COMMAND make install 
+# COMMAND ${CMAKE_COMMAND} -E copy ${LOCAL_LIBS_DIR}/SDL-1.2/lib/libSDL-1.2.so.0 ${Jack_SOURCE_DIR}/bin/${CMAKE_SYSTEM_NAME}/lib/
+)
+
 ##
 #ExternalProject_Add(
 #    SDL_image
