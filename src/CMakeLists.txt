@@ -5,4 +5,7 @@ add_library(JackLib box.cpp enemy.cpp game.cpp gameobject.cpp gameoverscreen.cpp
 add_executable(Jack_the_Janitor main.cpp)
 
 target_link_libraries(Jack_the_Janitor JackLib ${SYSTEM_LIBRARIES})
-install(TARGETS Jack_the_Janitor DESTINATION ${SYSTEM_BIN_DIR})
+install(TARGETS Jack_the_Janitor DESTINATION jtj/bin)
+install(PROGRAMS ${SYSTEM_DIR}/JackTheJanitor DESTINATION .)
+install(DIRECTORY ${SYSTEM_BIN_DIR}/lib/ DESTINATION jtj/lib)
+install(DIRECTORY ${ROOT_DIR}/resources DESTINATION jtj/)
