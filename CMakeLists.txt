@@ -79,7 +79,10 @@ ExternalProject_Add(
 #set(CPACK_PACKAGING_INSTALL_PREFIX "/usr/games")
 #
 
-#subdirs(src)
+# Game
+subdirs(src)
+
+
 #include(CPack)
 
 #if(${CMAKE_SYSTEM_NAME} MATCHES windows)

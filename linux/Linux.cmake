@@ -8,5 +8,5 @@ set(SDL_IMAGE_CONFIGURE_OPTIONS "")
 set(FREETYPE_CONFIGURE_OPTIONS "")
 set(SDL_TTF_CONFIGURE_OPTIONS "")
 
-#set(SYSTEM_LIBRARIES libSDL.so libSDL_image.so libSDL_ttf.so libfreetype.so)
+set(SYSTEM_LIBRARIES libSDL.so libSDL_image.so libSDL_ttf.so libfreetype.so)
 
