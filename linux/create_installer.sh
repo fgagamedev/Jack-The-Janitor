@@ -9,7 +9,8 @@
 SYSTEM=linux
 CUR_DIR=`pwd`
 BUILD_DIR=build/$SYSTEM
-DIST_BIN_DIR=dist/$SYSTEM/bin
+DIST_DIR=dist/$SYSTEM
+DIST_BIN_DIR=$DIST_DIR/bin
 
 # Generates Debin package (.deb)
 function debian_package
@@ -21,18 +22,31 @@ function debian_package
     cd $CUR_DIR
     mkdir -p $DIST_BIN_DIR
     mv $BUILD_DIR/*.deb $DIST_BIN_DIR/
+    echo "Done"
 }
-#    echo "Done"
-#fi
 
-#mv jtj-1.0.0-linux.deb ../../bin/linux
-#cd ..
+# Generates a Qt installer (user friendly)
+QT_PACKAGE_DATA_DIR=dist/$SYSTEM/packages/jtj/data
+function qt_package
+{
+    echo "Building Qt package..."
+    mkdir -p $QT_PACKAGE_DATA_DIR
+    rm -f $QT_PACKAGE_DATA_DIR/*.7z
+    archivegen data.7z $BIN_DIR resources
+    mv data.7z $QT_PACKAGE_DATA_DIR
+    cd $DIST_DIR
+    binarycreator -c config/config.xml -p packages JackTheJanitorSetup.sh
+    cd $CUR_DIR
+    mv $DIST_DIR/*.sh $DIST_BIN_DIR
+    echo "Done"
+}
 
 # Main
 case $1 in
     "all")
         echo "All"
         debian_package
+        qt_package
         ;;
 
     "deb")
@@ -42,6 +56,7 @@ case $1 in
 
     "qt")
         echo "Qt"
+        qt_package
         ;;
 
     *)
@@ -49,13 +64,3 @@ case $1 in
         exit 1
 esac
 
-# Qt installer (user friendly)
-#mkdir -p dist/linux/packages/jtj/data
-#rm -f dist/linux/packages/jtj/data/data.7z
-#archivegen data.7z bin/linux/ resources
-#mv data.7z dist/linux/packages/jtj/data/
-#cd dist/linux
-#binarycreator -c config/config.xml -p packages JackTheJanitorSetup.sh
-#mv JackTheJanitorSetup.sh ../../bin/linux
-#cd ../..
-#

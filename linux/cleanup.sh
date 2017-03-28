@@ -4,9 +4,11 @@
 # Changes made by Jack_The_Janitor authors (check AUTHORS file for more info)
 # Date: 5/06/2013
 
-LIB_DIR=lib
-BUILD_DIR=build
 SYSTEM=linux
 
-rm -rf $BUILD_DIR/$SYSTEM $LIB_DIR/$SYSTEM
+LIB_DIR=lib/$SYSTEM
+BUILD_DIR=build/$SYSTEM
+DIST_BIN_DIR=dist/$SYSTEM/bin
+
+rm -rf $LIB_DIR $BUILD_DIR $DIST_BIN_DIR
 
