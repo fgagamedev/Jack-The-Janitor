@@ -41,7 +41,7 @@ ExternalProject_Add(
     PREFIX lib
     URL ${LIB_SRC_DIR}/SDL_image-1.2.12.tar.gz
     CONFIGURE_COMMAND <SOURCE_DIR>/configure --prefix=${SDL_PREFIX} --with-sdl-prefix=${SDL_PREFIX} ${SDL_IMAGE_CONFIGURE_OPTIONS} 
-    BUILD_COMMAND $(MAKE) #CFLAGS=-I${SDL_INCLUDE_DIR}
+    BUILD_COMMAND $(MAKE) 
     INSTALL_COMMAND $(MAKE) install
 )
 
@@ -69,21 +69,23 @@ ExternalProject_Add(
     INSTALL_COMMAND $(MAKE) install
 )
 
-#set(CPACK_GENERATOR "DEB")
-#
-#set(CPACK_DEBIAN_PACKAGE_NAME "jtj")
-#set(CPACK_DEBIAN_PACKAGE_VERSION "1.0.0")
-#set(CPACK_DEBIAN_PACKAGE_FILE_NAME "jtj-1.0.0-linux")
-#set(CPACK_DEBIAN_PACKAGE_DESCRIPTION "A puzzle/platform game developed by FGA students Athos Ribeiro, Alexandre Barbosa and Matheus Furquim in 2013")
-#set(CPACK_DEBIAN_PACKAGE_MAINTAINER "LVDJ - Laboratório Virtual de Desenvolvimento de Jogos")
-#set(CPACK_PACKAGING_INSTALL_PREFIX "/usr/games")
-#
-
 # Game
 subdirs(src)
 
+# Packing
+set(CPACK_PACKAGE_NAME "jtj")
+set(CPACK_PACKAGE_VERSION_MAJOR "1")
+set(CPACK_PACKAGE_VERSION_MINOR "0")
+set(CPACK_PACKAGE_VERSION_PATCH "1")
+set(CPACK_DEBIAN_PACKAGE_DESCRIPTION "A puzzle/platform game developed by FGA students Athos Ribeiro, Alexandre Barbosa and Matheus Furquim in 2013")
+set(CPACK_DEBIAN_PACKAGE_MAINTAINER "LVDJ - Laboratório Virtual de Desenvolvimento de Jogos")
+set(CPACK_PACKAGE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/COPYING")
 
-#include(CPack)
+set(CPACK_PACKAGING_INSTALL_PREFIX "/usr/games")
+set(CPACK_GENERATOR "DEB")
+
+include(CPack)
+
 
 #if(${CMAKE_SYSTEM_NAME} MATCHES windows)
 #
