@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package>
+    <DisplayName>Jack The Janitor</DisplayName>
+    <Description>Jack The Janitor - Puzzle/Platform Game</Description>
+    <Version>1.0.0.1</Version>
+    <ReleaseDate>2017-03-12</ReleaseDate>
+    <Licenses>
+        <License name="GNU GPL v3" file="license.txt"/>
+    </Licenses>
+    <Default>true</Default>
+</Package>

@@ -1,10 +1,11 @@
 # !/bin/bash
+#
+# Remove auto generated and temporary files
+#
 # Author: Edson Alves - edsonalves@unb.br
-# Date: 26/11/2010
-# Changes made by Jack_The_Janitor authors (check AUTHORS file for more info)
-# Date: 5/06/2013
+# Date: 27/03/2017
 
-# all
-make clean
-find . -name *~ -exec rm -f {} \;
+BUILD_DIR=build
 
+linux/cleanup.sh
+rm -rf $BUILD_DIR
