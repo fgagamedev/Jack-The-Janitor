@@ -49,3 +49,5 @@ build
 lib
 libs/src
 libs/tmp
+
+*sublime*

@@ -1,4 +1,0 @@
-#!/bin/bash
-cd /usr/games/jtj
-export LD_LIBRARY_PATH=/usr/games/jtj/lib
-bin/Jack_the_Janitor
