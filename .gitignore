@@ -1,51 +1,59 @@
-# Compiled Objects:
+# Prerequisites
+*.d
+
+# Compiled Object files
 *.slo
 *.lo
 *.o
+*.obj
 
-# Compiled Dynamic Libraries
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
 *.so
 *.dylib
+*.dll
 
-# Compiled Static Libraries
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
 *.lai
 *.la
 *.a
+*.lib
 
-# Binary
-Jack_The_Janitor
+# Executables
+*.exe
+*.out
+*.app
+src/jack_the_janitor_debug
+src/jack_the_janitor_release
 
-# Text editor backup files
+# Swap files
 *~
 *.swp
 *.swo
 
-# Autotools
-Makefile.in
-aclocal.m4
-autom4te.cache
-config.h
-config.h.in
-config.log
-config.status
-configure
-depcomp
-install-sh
-missing
-*\.deps
-jackthejanitor
-stamp-h1
-
-# Game screenshot
-screenshot.bmp
-
-# libs
-libs/FreeType-2.4/
-libs/SDL-1.2/
-
-# CMake and build files
+# Project files
 bin
-build
-lib
-libs/src
-libs/tmp
+
+# Windows files
+*.idb
+*.pdb
+.tmp
+*.msi
+
+# MacOS files
+*.DS_Store
+*.dSYM
+*.dmg
+
+# Linux files
+src/test_debug
+src/test_release
+*.deb
+*.rpm

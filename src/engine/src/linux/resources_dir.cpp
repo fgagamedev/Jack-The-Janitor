@@ -1,7 +1,9 @@
-#include "engine.h"
+#include <string>
+
+using std::string;
 
 string
-Engine::resources_dir_path() const
+resources_dir_path() 
 {
     return "resources/";
 }

@@ -1228,7 +1228,7 @@ void Game::loop() {
     return;
 }
 
-int run(int argc, char *argv[])
+int run(int, char *[])
 {
     Game game;
     game.init();
