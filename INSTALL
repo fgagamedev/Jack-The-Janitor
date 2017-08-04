@@ -1,8 +1,0 @@
-Jack the Janitor is currently being developed on Linux.
-
-In order to compile it, one must have the SDL and SDL_image libraries. 
-
-To compile and run:
-
-$ make
-$ bin/jtj
