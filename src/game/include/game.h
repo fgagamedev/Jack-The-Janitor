@@ -100,4 +100,6 @@ class Game {
         bool isLevelFinished();
 };
 
+int run(int argc, char *argv[]);
+
 #endif
