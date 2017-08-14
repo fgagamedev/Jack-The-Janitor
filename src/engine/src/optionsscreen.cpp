@@ -1,12 +1,13 @@
 #include "optionsscreen.h"
 #include "sdlutil.h"
+#include "engine.h"
 
 using namespace std;
 
 OptionsScreen::OptionsScreen(string filename)
 {
 	this->optionsScreen = SDLUtil::loadImage(filename.c_str());
-	this-> helpMessage = SDLUtil::loadImage("resources/helpTextImage.png");
+	this-> helpMessage = SDLUtil::loadImage(resources_dir_path() + "helpTextImage.png");
 }
 
 OptionsScreen::~OptionsScreen()

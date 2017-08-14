@@ -11,6 +11,7 @@
 #include <cstdlib>
 #include <SDL_ttf.h>
 #include "scorescreen.h"
+#include "engine.h"
 #include <stdio.h>
 
 using namespace std;
@@ -206,7 +207,7 @@ void Game::initGUI() {
     TTF_Init ();
 
     SDL_WM_SetCaption("Jack, The Janitor", NULL);
-    SDL_WM_SetIcon(IMG_Load("resources/Logo_WareHouse_64x64.png"), NULL);
+    SDL_WM_SetIcon(IMG_Load(string(resources_dir_path() + "Logo_WareHouse_64x64.png").c_str()), NULL);
     this->screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP, SDL_HWSURFACE | SDL_DOUBLEBUF);
 
     return;
@@ -240,15 +241,15 @@ void Game::loadCommonResources() {
     }
 
     /* Load our sound files and convert them to the sound card's format. */
-    char initScreenSoundName[26] = "resources/init_screen.wav";
-    char level_1SoundName[26] = "resources/level_1.wav";
-    char level_2SoundName[26] = "resources/level_2.wav";
-    char level_3SoundName[26] = "resources/level_3.wav";
+    string initScreenSoundName = resources_dir_path() + "init_screen.wav";
+    string level_1SoundName = resources_dir_path() + "level_1.wav";
+    string level_2SoundName = resources_dir_path() + "level_2.wav";
+    string level_3SoundName = resources_dir_path() + "level_3.wav";
     printf("Cheguei aqui 1\n");
-    if (LoadAndConvertSound(initScreenSoundName, &obtained, &initScreenSound) != 0 ||
-        LoadAndConvertSound(level_1SoundName, &obtained, &level_1Sound) != 0 ||
-        LoadAndConvertSound(level_2SoundName, &obtained, &level_2Sound) != 0 ||
-        LoadAndConvertSound(level_3SoundName, &obtained, &level_3Sound) != 0){
+    if (LoadAndConvertSound((char *) initScreenSoundName.c_str(), &obtained, &initScreenSound) != 0 ||
+        LoadAndConvertSound((char *) level_1SoundName.c_str(), &obtained, &level_1Sound) != 0 ||
+        LoadAndConvertSound((char *) level_2SoundName.c_str(), &obtained, &level_2Sound) != 0 ||
+        LoadAndConvertSound((char *) level_3SoundName.c_str(), &obtained, &level_3Sound) != 0){
     printf("Unable to load sound.\n");
     return ;
     }
@@ -668,12 +669,12 @@ void Game::draw() {
 void Game::loadLevel() {
 
     ClearPlayingSounds();
-    string level_1_file = "resources/level_1.png";
-    string level_2_file = "resources/level_2.png";
-    string level_3_file = "resources/level_3.png";
-    string level_1_spec = "resources/level_1";
-    string level_2_spec = "resources/level_2";
-    string level_3_spec = "resources/level_3";
+    string level_1_file = resources_dir_path() + "level_1.png";
+    string level_2_file = resources_dir_path() + "level_2.png";
+    string level_3_file = resources_dir_path() + "level_3.png";
+    string level_1_spec = resources_dir_path() + "level_1";
+    string level_2_spec = resources_dir_path() + "level_2";
+    string level_3_spec = resources_dir_path() + "level_3";
     string currentLevelFile;
     string currentLevelSpec;
     if(this->actualLevel > 3) {
@@ -722,7 +723,7 @@ void Game::loadLevel() {
     int nrBoxes = atoi(numberOfBoxes.c_str());
 
     for(int i = 0; i < nrBoxes; i++) {
-        Box* box = new Box("resources/box.png");
+        Box* box = new Box(resources_dir_path() + "box.png");
         level->boxes.push_back(box);
         level->addChild(box);
     }
@@ -730,7 +731,7 @@ void Game::loadLevel() {
     int nrEnemies = atoi(numberOfEnemies.c_str());
 
     for(int i = 0; i < nrEnemies; i++) {
-        Enemy* enemy = new Enemy("resources/enemy_sprites.png");
+        Enemy* enemy = new Enemy(resources_dir_path() + "enemy_sprites.png");
         enemy->setSpriteClips();
         level->enemies.push_back(enemy);
         level->addChild(enemy);
@@ -742,7 +743,7 @@ void Game::loadLevel() {
     this->linesDeleted = 0;
     this->gameWon = false;
 
-    jack = new Jack("resources/jack_sprites.png");
+    jack = new Jack(resources_dir_path() + "jack_sprites.png");
     jack->setSpriteClips();
     level->addChild(jack);
 
@@ -770,30 +771,30 @@ bool Game::isLevelFinished() {
 }
 
 void Game::initScreenDraw() {
-    initScreen = new InitScreen("resources/backgroundinitscreen.png");
+    initScreen = new InitScreen(resources_dir_path() + "backgroundinitscreen.png");
 
-    labelPlay = new Label("resources/startbutton.png", 483, 68);
+    labelPlay = new Label(resources_dir_path() + "startbutton.png", 483, 68);
     initScreen->addChild(labelPlay);
 
-    labelOptions = new Label("resources/optionsbutton.png", 483, 191);
+    labelOptions = new Label(resources_dir_path() + "optionsbutton.png", 483, 191);
     initScreen->addChild(labelOptions);
 
-    labelQuit = new Label("resources/exitbutton.png", 483, 314);
+    labelQuit = new Label(resources_dir_path() + "exitbutton.png", 483, 314);
     initScreen->addChild(labelQuit);
 
     return;
 }
 
 void Game::pauseScreenDraw() {
-	pauseScreen = new PauseScreen("resources/backgroundpausescreen.png");
+	pauseScreen = new PauseScreen(resources_dir_path() + "backgroundpausescreen.png");
 
-    labelPlay = new Label("resources/startbutton.png", 483, 68);
+    labelPlay = new Label(resources_dir_path() + "startbutton.png", 483, 68);
     pauseScreen->addChild(labelPlay);
 
-    labelOptions = new Label("resources/optionsbutton.png", 483, 191);
+    labelOptions = new Label(resources_dir_path() + "optionsbutton.png", 483, 191);
     pauseScreen->addChild(labelOptions);
 
-    labelQuit = new Label("resources/exitbutton.png", 483, 314);
+    labelQuit = new Label(resources_dir_path() + "exitbutton.png", 483, 314);
     pauseScreen->addChild(labelQuit);
 
     return;
@@ -801,15 +802,15 @@ void Game::pauseScreenDraw() {
 
 void Game::showOptionsScreen() {
 
-    optionsScreen = new OptionsScreen("resources/backgroundoptionsscreen.png");
+    optionsScreen = new OptionsScreen(resources_dir_path() + "backgroundoptionsscreen.png");
 
-    labelMute = new Label("resources/mutebutton.png", 483, 68);
+    labelMute = new Label(resources_dir_path() + "mutebutton.png", 483, 68);
     optionsScreen->addChild(labelMute);
 
-    labelLoad = new Label("resources/loadbutton.png", 483, 191);
+    labelLoad = new Label(resources_dir_path() + "loadbutton.png", 483, 191);
     optionsScreen->addChild(labelLoad);
 
-    labelBack = new Label("resources/backbutton.png", 483, 314);
+    labelBack = new Label(resources_dir_path() + "backbutton.png", 483, 314);
     optionsScreen->addChild(labelBack);
 
     bool muteButton = false;
@@ -1052,15 +1053,15 @@ void Game::initializingScreen() {
     return ;
 }
 void Game::gameOverScreenDraw() {
-	gameOverScreen = new GameOverScreen("resources/backgroundgameover.png");
+	gameOverScreen = new GameOverScreen(resources_dir_path() + "backgroundgameover.png");
 
-    labelPlay = new Label("resources/startbutton.png", 483, 68);
+    labelPlay = new Label(resources_dir_path() + "startbutton.png", 483, 68);
     gameOverScreen->addChild(labelPlay);
 
-    labelOptions = new Label("resources/optionsbutton.png", 483, 191);
+    labelOptions = new Label(resources_dir_path() + "optionsbutton.png", 483, 191);
     gameOverScreen->addChild(labelOptions);
 
-    labelQuit = new Label("resources/exitbutton.png", 483, 314);
+    labelQuit = new Label(resources_dir_path() + "exitbutton.png", 483, 314);
     gameOverScreen->addChild(labelQuit);
 
     return;
@@ -1140,7 +1141,7 @@ void Game::wonGameScreen()
     }
     this->actualLevel ++;
     cout << "Level: " << actualLevel << endl;
-    wonScreen = new InitScreen("resources/backgroundwonscreen.png");
+    wonScreen = new InitScreen(resources_dir_path() + "backgroundwonscreen.png");
 
     bool playButton = false;
     bool quitButton = false;
