@@ -2,9 +2,9 @@
 #define GAME_H_
 
 #include <sdlutil.h>
-#include <SDL/SDL.h>
-#include <SDL/SDL_image.h>
-#include "SDL/SDL_ttf.h"
+#include <SDL.h>
+#include <SDL_image.h>
+#include "SDL_ttf.h"
 #include "level.h"
 #include "timer.h"
 #include "jack.h"

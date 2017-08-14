@@ -1,6 +1,6 @@
 #include "sdlutil.h"
 #include <string>
-#include <SDL/SDL_image.h>
+#include <SDL_image.h>
 
 using namespace std;
 

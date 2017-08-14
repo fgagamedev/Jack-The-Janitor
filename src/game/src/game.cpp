@@ -9,7 +9,7 @@
 #include "box.h"
 #include "sdlutil.h"
 #include <cstdlib>
-#include "SDL/SDL_ttf.h"
+#include <SDL_ttf.h>
 #include "scorescreen.h"
 #include <stdio.h>
 

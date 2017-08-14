@@ -2,7 +2,7 @@
 #define GAMEOBJECT_H
 
 #include <vector>
-#include <SDL/SDL.h>
+#include <SDL.h>
 
 using namespace std;
 

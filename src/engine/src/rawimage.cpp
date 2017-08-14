@@ -1,5 +1,5 @@
 #include "rawimage.h"
-#include <SDL/SDL_image.h>
+#include <SDL_image.h>
 
 //TODO: THROW EXCEPTIONS ON LOAD METHOD
 

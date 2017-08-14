@@ -2,7 +2,7 @@
 #define RAWIMAGE_H
 
 #include "resource.h"
-#include <SDL/SDL.h>
+#include <SDL.h>
 
 using namespace std;
 

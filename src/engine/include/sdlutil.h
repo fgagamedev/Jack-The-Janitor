@@ -1,7 +1,7 @@
 #ifndef SDLUTIL_H
 #define SDLUTIL_H
 
-#include <SDL/SDL.h>
+#include <SDL.h>
 #include <string>
 
 class SDLUtil {
