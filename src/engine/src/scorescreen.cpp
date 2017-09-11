@@ -5,16 +5,17 @@
 #include "SDL_ttf.h"
 #include <string>
 #include <iostream>
+#include "engine.h"
 
 using namespace std;
 
 ScoreScreen::ScoreScreen()
 {
-    this->armario = SDLUtil::loadImage("resources/armario.png");
+    this->armario = SDLUtil::loadImage(resources_dir_path() + "armario.png");
     this->scoreTextColor.r = 255;
     this->scoreTextColor.g = 255;
     this->scoreTextColor.b = 255;
-    this->scoreFont = TTF_OpenFont ("resources/HanaleiRegular.ttf", 40);
+    this->scoreFont = TTF_OpenFont ((resources_dir_path() + "HanaleiRegular.ttf").c_str(), 40);
 
 	this->scorePoints = 0;
     sprintf(this->scoreString, "Score: %5d", this->scorePoints);
